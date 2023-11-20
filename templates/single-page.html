@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <!-- Breadcrumb Start -->
+  <div class="breadcrumb-wrap">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'home' %}">News</a>
+        </li>
+        <li class="breadcrumb-item active">News details</li>
+      </ul>
+    </div>
+  </div>
+  <!-- Breadcrumb End -->
+
+  <!-- Single News Start -->
+  <div class="single-news">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="sn-img">
+            <img src=" {{ detail_news.img.url }} " />
+          </div>
+          <div class="sn-content">
+            <a class="sn-title" href="#">{{ detail_news.title }}</a>
+            <code class="sn-date" href="#"><i class="far fa-clock"></i> {{ detail_news.update_at }}</code>
+            <p>{{ detail_news.body }}</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="sidebar">
+            <div class="sidebar-widget">
+              <h2><i class="fas fa-align-justify"></i>Category</h2>
+              <div class="category">
+                <ul class="fa-ul">
+                  {% for i in category_data %}
+                    <li>
+                      <span class="fa-li"><i class="far fa-arrow-alt-circle-right"></i></span><a href="">{{ i.name }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+
+            <div class="sidebar-widget">
+              <h2><i class="fas fa-align-justify"></i>Tags</h2>
+              <div class="tags">
+                {% for i in tags_data %}
+                  <a href="">{{ i.name }}</a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Single News End -->
+{% endblock %}

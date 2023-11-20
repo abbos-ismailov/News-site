@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <!-- Top News Start -->
+  <div class="top-news">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 tn-left">
+          <div class="tn-img">
+            <img class="img-fluid" src="{{ last_new.img.url }}" />
+            <div class="tn-content">
+              <div class="tn-content-inner">
+                <a class="tn-date" href="{% url 'post_details' last_new.id %}"><i class="far fa-clock"></i>{{ last_new.update_at }} <b><i class="fa fa-eye"></i> {{ last_new.view_count }}</b></a>
+                <a class="tn-title" href="{% url 'post_details' last_new.id %}">{{ last_new.title }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 tn-right">
+          <div class="row">
+            {% for i in last_news %}
+              <div class="col-md-6">
+                <div class="tn-img">
+                  <img class="w-100" src="{{ i.img.url }}" />
+                  <div class="tn-content">
+                    <div class="tn-content-inner">
+                      <a class="tn-date" href="{% url 'post_details' i.id %}">
+                        <i class="far fa-clock"></i> {{ i.update_at }} <i class="fa fa-eye"></i> {{ i.view_count }}
+                      </a>
+                      <a class="tn-title" href="{% url 'post_details' i.id %}">{{ i.title }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Top News End -->
+
+  <!-- Category News Start -->
+  <div class="cat-news">
+    <div class="container-fluid">
+      <div class="row">
+        {% for j in category_data %}
+          <div class="col-md-6">
+            <h2><i class="fas fa-align-justify"></i>{{ j }}</h2>
+            <div class="row cn-slider">
+              {% for i in data_news %}
+                {% if i.category == j %}
+                  <div class="col-md-6">
+                    <div class="cn-img">
+                      <img height="250px" src="{{ i.img.url }}" />
+                      <div class="cn-content">
+                        <div class="cn-content-inner">
+                          <a class="cn-date" href="{% url 'post_details' i.id %}"><i class="far fa-clock"></i>{{ i.update_at }}</a>
+                          <a style="font-size: 12px;" class="cn-title" href="{% url 'post_details' i.id %}">{{ i.title }}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <!-- Category News End -->
+
+  <!-- Main News Start -->
+  <div class="main-news">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-12">
+              <h2><i class="fas fa-align-justify"></i>Latest News</h2>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="mn-img">
+                    <img src="{{ last_new.img.url }}" />
+                  </div>
+                  <div class="mn-content">
+                    <a class="mn-title" href="{% url 'post_details' last_new.id %}">{{ last_new.title }}</a>
+                    <a class="mn-date" href="{% url 'post_details' last_new.id %}"><i class="far fa-clock"></i> {{ last_new.update_at }}</a>
+                    <p>
+                      {% comment %} {{ last_new_body }} {% endcomment %}
+                    </p>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  {% for i in last_news %}
+                    <div class="mn-list">
+                      <div class="mn-img">
+                        <img src="{{ i.img.url }}" />
+                      </div>
+                      <div class="mn-content">
+                        <a class="mn-title" href="{% url 'post_details' i.id %}">{{ i.title }}</a>
+                        <a class="mn-date" href="{% url 'post_details' i.id %}"><i class="far fa-clock"></i> {{ i.update_at }} &nbsp; <b><i class="fa fa-eye"></i> {{ i.view_count }}</b></a>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <h2><i class="fas fa-align-justify"></i>Popular News</h2>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="mn-img">
+                    <img src="{{ popular_new.img.url }}" />
+                  </div>
+                  <div class="mn-content">
+                    <a class="mn-title" href="{% url 'post_details' popular_new.id %}">{{ popular_new.title }}</a>
+                    <a class="mn-date" href="{% url 'post_details' popular_new.id %}"><i class="far fa-clock"></i>{{ popular_new.update_at }}</a>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  {% for i in popular_news %}
+                    <div class="mn-list">
+                      <div class="mn-img">
+                        <img src="{{ i.img.url }}" />
+                      </div>
+                      <div class="mn-content">
+                        <a class="mn-title" href="{% url 'post_details' i.id %}">{{ i.title }}</a>
+                        <a class="mn-date" href="{% url 'post_details' i.id %}"><i class="far fa-clock"></i>{{ i.update_at }} <b><i class="fa fa-eye"></i> {{ i.view_count }}</b></a>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="sidebar">
+            <div class="sidebar-widget">
+              <h2><i class="fas fa-align-justify"></i>Category</h2>
+              <div class="category">
+                <ul class="fa-ul">
+                  {% for i in category_data %}
+                    <li>
+                      <span class="fa-li"><i class="far fa-arrow-alt-circle-right"></i></span><a href="">{{ i.name }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+
+            <div class="sidebar-widget">
+              <h2><i class="fas fa-align-justify"></i>Tags</h2>
+              <div class="tags">
+                {% for i in tags_data %}
+                  <a href="">{{ i.name }}</a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main News End -->
+{% endblock %}
