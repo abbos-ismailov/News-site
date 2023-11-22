@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="m-5">
+    <h1>News Edit</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input class="btn btn-primary" type="submit" value="Submit" />
+      <a class="btn btn-dark" href="{% url 'post_details' object.id %}">Cancel</a>
+    </form>
+  </div>
+{% endblock %}
