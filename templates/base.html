@@ -70,10 +70,11 @@
             {% if request.user.is_authenticated %}
               <div class="navbar-nav m-auto">
                 <div class="dropdown">
-                  <a class="dropdown-toggle nav-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile - {{ request.user.username }}</a>
+                  <a class="dropdown-toggle nav-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ request.user.username }}</a>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
-                    {% comment %} <a class="dropdown-item" href="{% url 'password-change' %}">Change Profile</a> {% endcomment %}
+                    <a class="dropdown-item" href="{% url 'my_news' %}">My News</a>
+                    <a class="dropdown-item" href="{% url 'accounts:my_profile' %}">My Profile</a>
                   </div>
                 </div>
 

@@ -24,9 +24,7 @@
                   <img class="w-100" src="{{ i.img.url }}" />
                   <div class="tn-content">
                     <div class="tn-content-inner">
-                      <a class="tn-date" href="{% url 'post_details' i.id %}">
-                        <i class="far fa-clock"></i> {{ i.update_at }} <i class="fa fa-eye"></i> {{ i.view_count }}
-                      </a>
+                      <a class="tn-date" href="{% url 'post_details' i.id %}"><i class="far fa-clock"></i> {{ i.update_at }} <i class="fa fa-eye"></i> {{ i.view_count }}</a>
                       <a class="tn-title" href="{% url 'post_details' i.id %}">{{ i.title }}</a>
                     </div>
                   </div>
@@ -85,11 +83,9 @@
                     <img src="{{ last_new.img.url }}" />
                   </div>
                   <div class="mn-content">
-                    <a class="mn-title" href="{% url 'post_details' last_new.id %}">{{ last_new.title }}</a>
+                    <a class="mn-title" href="{% url 'post_details' last_new.id %}">{{ last_new.title|slice:55 }}...</a>
                     <a class="mn-date" href="{% url 'post_details' last_new.id %}"><i class="far fa-clock"></i> {{ last_new.update_at }}</a>
-                    <p>
-                      {% comment %} {{ last_new_body }} {% endcomment %}
-                    </p>
+                    <p>{{ last_new.body|slice:50 }}...</p>
                   </div>
                 </div>
                 <div class="col-lg-6">
@@ -115,8 +111,9 @@
                     <img src="{{ popular_new.img.url }}" />
                   </div>
                   <div class="mn-content">
-                    <a class="mn-title" href="{% url 'post_details' popular_new.id %}">{{ popular_new.title }}</a>
-                    <a class="mn-date" href="{% url 'post_details' popular_new.id %}"><i class="far fa-clock"></i>{{ popular_new.update_at }}</a>
+                    <a class="mn-title" href="{% url 'post_details' popular_new.id %}">{{ popular_new.title|slice:55 }}...</a>
+                    <a class="mn-date" href="{% url 'post_details' popular_new.id %}"><i class="far fa-clock"></i>{{ popular_new.update_at }} &nbsp; <b><i class="fa fa-eye"></i>{{ popular_new.view_count }}</b></a>
+                    <p>{{ popular_new.body|slice:50 }}...</p>
                   </div>
                 </div>
                 <div class="col-lg-6">
@@ -126,7 +123,7 @@
                         <img src="{{ i.img.url }}" />
                       </div>
                       <div class="mn-content">
-                        <a class="mn-title" href="{% url 'post_details' i.id %}">{{ i.title }}</a>
+                        <a class="mn-title" href="{% url 'post_details' i.id %}">{{ i.title|slice:55 }}...</a>
                         <a class="mn-date" href="{% url 'post_details' i.id %}"><i class="far fa-clock"></i>{{ i.update_at }} <b><i class="fa fa-eye"></i> {{ i.view_count }}</b></a>
                       </div>
                     </div>
@@ -145,7 +142,8 @@
                 <ul class="fa-ul">
                   {% for i in category_data %}
                     <li>
-                      <span class="fa-li"><i class="far fa-arrow-alt-circle-right"></i></span><a href="">{{ i.name }}</a>
+                      <span class="fa-li"><i class="far fa-arrow-alt-circle-right"></i></span>
+                      <a href="{% url 'category_new' i.id %}">{{ i.name }}</a>
                     </li>
                   {% endfor %}
                 </ul>
@@ -156,7 +154,7 @@
               <h2><i class="fas fa-align-justify"></i>Tags</h2>
               <div class="tags">
                 {% for i in tags_data %}
-                  <a href="">{{ i.name }}</a>
+                  <a href="{% url 'tags_new' i.id %}">{{ i.name }}</a>
                 {% endfor %}
               </div>
             </div>

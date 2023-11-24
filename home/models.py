@@ -39,6 +39,7 @@ class News(BaseModel):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     tags = models.ManyToManyField(Tags)
+    is_active = models.BooleanField(default=False, null=True, blank=True)
 
     def __str__(self) -> str: 
         return self.title

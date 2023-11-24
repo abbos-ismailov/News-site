@@ -8,4 +8,4 @@ class AddNewForm(forms.ModelForm):
     # body = forms.CharField(widget=CKEditorWidget())
     class Meta:
         model = News
-        fields = ['title', 'img', 'body', 'category', 'tags']
+        fields = ['title', 'img', 'body', 'category', 'tags', 'is_active']

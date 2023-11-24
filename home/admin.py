@@ -3,7 +3,7 @@ from .models import Contact, Category, Tags, Social, News
 # Register your models here.
 
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'user', 'category', 'create_at', 'view_count']
+    list_display = ['title', 'id', 'user', 'category', 'create_at', 'view_count']
     readonly_fields = ['view_count']
     prepopulated_fields = {"slug": ("title",),}
 
