@@ -1,0 +1,15 @@
+{% extends '../base.html' %}
+{% block content %}
+  <section class="container my-5">
+    {% if user.avatar %}
+      <img src="{{ user.avatar }}" alt="..." />
+    {% endif %}
+    <h1>{{ user.username }}</h1>
+    <h3>{{ user.first_name }}</h3>
+    <h3>{{ user.last_name }}</h3>
+    <h3>{{ user.email }}</h3>
+    {% comment %} <h3>{{ user.address }}</h3>
+    <h3>{{ user.phone }}</h3> {% endcomment %}
+    <a href="{% url 'my_profile_update' user.id %}" class="btn btn-primary">Update</a>
+  </section>
+{% endblock %}
