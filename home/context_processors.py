@@ -7,7 +7,6 @@ def LatestContext(request):
     context = {
         "last_news": latest_news[1:],
         "last_new": latest_news[0],
-        # 'last_new_body': latest_news[0].body[:50]
     }
 
     return context

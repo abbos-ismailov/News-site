@@ -40,7 +40,8 @@
                 <ul class="fa-ul">
                   {% for i in category_data %}
                     <li>
-                      <span class="fa-li"><i class="far fa-arrow-alt-circle-right"></i></span><a href="">{{ i.name }}</a>
+                      <span class="fa-li"><i class="far fa-arrow-alt-circle-right"></i></span>
+                      <a href="{% url 'category_new' i.id %}">{{ i.name }}</a>
                     </li>
                   {% endfor %}
                 </ul>
@@ -51,12 +52,31 @@
               <h2><i class="fas fa-align-justify"></i>Tags</h2>
               <div class="tags">
                 {% for i in tags_data %}
-                  <a href="">{{ i.name }}</a>
+                  <a href="{% url 'tags_new' i.id %}">{{ i.name }}</a>
                 {% endfor %}
               </div>
             </div>
+
+            <div class="sidebar-widget">
+              {% for i in relation_tags_news %}
+                <div class="mn-list border p-1 my-2 d-flex">
+                  <div class="mn-img">
+                    <img width="100px" src="{{ i.img.url }}" />
+                  </div>
+                  <div class="mn-content ml-2">
+                    <a class="mn-title text-dark" href="{% url 'post_details' i.id %}">{{ i.title|slice:55 }}...</a>
+                    <br>
+                    <a class="mn-date" href="{% url 'post_details' i.id %}"><i class="far fa-clock"></i> {{ i.update_at }} <b><i class="fa fa-eye"></i> {{ i.view_count }}</b></a>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+
           </div>
         </div>
+
+
+
       </div>
     </div>
 

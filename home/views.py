@@ -1,4 +1,5 @@
 from typing import Any
+from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -38,6 +39,27 @@ class HomePage(ListView):
 
         return context
 
+class SearchView(ListView):
+    template_name = 'search.html'
+    model = News
+
+    def get_queryset(self) -> QuerySet[Any]:
+        query = self.request.GET.get('search')
+        object_list = News.objects.filter(
+            Q(title__icontains=query) | Q(body__icontains=query) | Q(tags__name__icontains=query)
+        )
+        new_obj = set(object_list)
+
+        object_list = list(new_obj)
+        
+        return object_list
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["query"] = self.request.GET.get("search")
+        return context
+
+
 
 class AddNewView(CreateView):
     model = News
@@ -66,6 +88,17 @@ class AddNewView(CreateView):
 class PostDetailView(DetailView):
     context_object_name = "detail_news"  ### Shu narsa delete qilishda kerak boldi
     template_name = "single-page.html"
+    
+    model = News
+
+
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['relation_tags_news'] = News.objects.filter(is_active=True, category=context['detail_news'].category).order_by('update_at')[:6]
+
+        return context
+    
 
     # Overriding the class get_object method
     def get_object(self):
@@ -75,7 +108,7 @@ class PostDetailView(DetailView):
         if post:
             post.view_count = post.view_count + 1
             post.save()
-
+            
         return post
 
 
@@ -120,17 +153,6 @@ class TagsDetail(DetailView):
     def get_object(self):
         id = self.kwargs['pk']
         return News.objects.filter(tags__id=id)
-
-
-class SearchResultsView(LoginRequiredMixin, ListView):
-    model = News
-    template_name = 'search_results.html'
-
-    
-    def get_queryset(self): # new
-        return News.objects.filter(
-            Q(title="Boston") | Q(body="NY")
-        )
 
 
 class MyNewsView(LoginRequiredMixin, ListView):

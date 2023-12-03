@@ -37,16 +37,16 @@
           </div>
           <div class="col-lg-6 col-md-4">
             <div class="search">
-              <input type="text" placeholder="Search" />
-              <button><i class="fa fa-search"></i></button>
+              <form action="{% url 'search' %}" method="get">
+                <input type="search" placeholder="Search" aria-label="search" name="search" />
+                <button type="submit"><i class="fa fa-search"></i></button>
+              </form>
             </div>
           </div>
           <div class="col-lg-3 col-md-4">
             <div class="social">
               {% for i in social_data %}
-                <a href="{{ i.link }}">
-                  <img width="30" src="{{ i.icon.url }}" alt="social_icon">
-                </a>
+                <a href="{{ i.link }}"><img width="30" src="{{ i.icon.url }}" alt="social_icon" /></a>
               {% endfor %}
             </div>
           </div>
@@ -162,9 +162,7 @@
                 </p>
                 <div class="social">
                   {% for i in social_data %}
-                    <a href="{{ i.link }}">
-                      <img width="30" src="{{ i.icon.url }}" alt="">
-                    </a>
+                    <a href="{{ i.link }}"><img width="30" src="{{ i.icon.url }}" alt="" /></a>
                   {% endfor %}
                 </div>
               </div>

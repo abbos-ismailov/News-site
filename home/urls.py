@@ -6,7 +6,7 @@ from .views import (HomePage,
                     NewsUpdateView, 
                     CategoryDetail, 
                     TagsDetail, 
-                    SearchResultsView,
+                    SearchView,
                     MyNewsView,
                     )
 
@@ -22,5 +22,5 @@ urlpatterns = [
     path('category/<int:pk>/', CategoryDetail.as_view(), name="category_new"),
     path('tags/<int:pk>/', TagsDetail.as_view(), name="tags_new"),
 
-    path("search/", SearchResultsView.as_view(), name="search_results"),
+    path("search/", SearchView.as_view(), name="search"),
 ]
